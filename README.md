@@ -8,12 +8,12 @@ Call [action-workflow-hcp-terraform-var-set-attach](https://github.com/enpicie/a
 
 ```yaml
 - name: Attach Lambda+APIGateway+DynamoDB Permissions Variable Set to this Workspace
-  uses: chzylee/action-workflow-hcp-terraform-var-set-attach@v1.0.0
+  uses: chzylee/action-workflow-hcp-terraform-var-set-attach@v1.0.1
   with:
     tfc_organization: ${{ env.HCP_TERRAFORM_ORG }}
     tfc_workspace_id: ${{ steps.setup_workspace.outputs.workspace_id }}
     tfc_token: ${{ secrets.TF_API_TOKEN }}
-    var_set_name: ${{ vars.AWS_TF_ROLE_VARSET_LAMB_APIGW_DDB}}
+    var_set_name: ${{ vars.AWS_TF_ROLE_VARSET_LAMB_APIGW_DDB }}
 ```
 
 This attaches the HCP Terraform Variable set referencing the permissions provisioned by this config to a workspace to allow Terraform to assume the role with these permissions.
