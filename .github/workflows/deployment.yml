@@ -27,7 +27,7 @@ jobs:
         with:
           tfc_organization: ${{ env.HCP_TERRAFORM_ORG }}
           tfc_workspace: ${{ env.HCP_TERRAFORM_WORKSPACE }}
-          tfc_project_id: ${{ env.HCP_TERRAFORM_PROJECT }}
+          tfc_project: ${{ env.HCP_TERRAFORM_PROJECT }}
           tfc_token: ${{ secrets.TF_API_TOKEN }}
 
       - name: Attach IAM Permissions Variable Set to this Workspace
