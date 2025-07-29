@@ -31,6 +31,23 @@ resource "aws_iam_policy" "lambda_apigw_ddb_full_access" {
         Resource = "*"
       },
       {
+        # Needed to allow Lambda functions to access S3 buckets for deployment artifacts.
+        # The need for this is implied in creation of lambdas so S3 is not included in role name.
+        Sid    = "S3AccessForLambdaDeployment",
+        Effect = "Allow",
+        Action = [
+          "s3:PutObject",
+          "s3:GetObject",
+          "s3:ListBucket"
+        ],
+        Resource = [
+          "arn:aws:s3:::enpicie-dev-lambda-artifacts",
+          "arn:aws:s3:::enpicie-dev-lambda-artifacts/*",
+          "arn:aws:s3:::enpicie-prod-lambda-artifacts",
+          "arn:aws:s3:::enpicie-prod-lambda-artifacts/*"
+        ]
+      },
+      {
         Sid    = "PassRoleForLambda",
         Effect = "Allow",
         # Allows passing execution roles to Lambda functions.
