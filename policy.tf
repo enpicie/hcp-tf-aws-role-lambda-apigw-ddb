@@ -38,6 +38,7 @@ resource "aws_iam_policy" "lambda_apigw_ddb_full_access" {
         Action = [
           "s3:PutObject",
           "s3:GetObject",
+          "s3:GetObjectTagging",
           "s3:ListBucket"
         ],
         Resource = [
@@ -48,16 +49,35 @@ resource "aws_iam_policy" "lambda_apigw_ddb_full_access" {
         ]
       },
       {
-        Sid    = "PassRoleForLambda",
-        Effect = "Allow",
+        Sid = "PassRoleForLambda",
         # Allows passing execution roles to Lambda functions.
-        Action   = "iam:PassRole",
-        Resource = "*",
-        Condition = {
-          StringLikeIfExists = {
-            "iam:PassedToService" = "lambda.amazonaws.com"
+        "Effect" : "Allow",
+        "Action" : "iam:PassRole",
+        "Resource" : "*",
+        "Condition" : {
+          "StringLikeIfExists" : {
+            "iam:PassedToService" : "lambda.amazonaws.com"
           }
         }
+      },
+      {
+        Effect = "Allow",
+        # Ensures full ability to provision and attach Lambda roles.
+        "Action" : [
+          "iam:PassRole",
+          "iam:CreateRole",
+          "iam:DeleteRole",
+          "iam:GetRole",
+          "iam:AttachRolePolicy",
+          "iam:ListRolePolicies",
+          "iam:ListAttachedRolePolicies",
+          "iam:ListInstanceProfilesForRole"
+        ],
+        "Resource" : [
+          # Enforce naming convention for Lambda execution role.
+          "arn:aws:iam::637423387388:role/LambdaExecutionRole-*",
+          "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+        ]
       },
       {
         # Needed to provision logging groups for Lambda functions.
