@@ -49,6 +49,16 @@ resource "aws_iam_policy" "lambda_apigw_ddb_full_access" {
         ]
       },
       {
+        "Effect" : "Allow",
+        "Action" : [
+          "kms:GenerateDataKey",
+          "kms:Encrypt",
+          "kms:Decrypt",
+          "kms:DescribeKey"
+        ],
+        "Resource" : "arn:aws:kms:us-east-2:637423387388:key/*"
+      },
+      {
         Sid = "PassRoleForLambda",
         # Allows passing execution roles to Lambda functions.
         "Effect" : "Allow",
