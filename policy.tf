@@ -80,6 +80,7 @@ resource "aws_iam_policy" "lambda_apigw_ddb_full_access" {
           "iam:DeleteRole",
           "iam:GetRole",
           "iam:AttachRolePolicy",
+          "iam:PutRolePolicy",
           "iam:ListRolePolicies",
           "iam:ListAttachedRolePolicies",
           "iam:ListInstanceProfilesForRole"
