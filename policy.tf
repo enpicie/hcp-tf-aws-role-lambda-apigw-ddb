@@ -80,14 +80,26 @@ resource "aws_iam_policy" "lambda_apigw_ddb_full_access" {
           "iam:DeleteRole",
           "iam:GetRole",
           "iam:AttachRolePolicy",
+          "iam:DetachRolePolicy",
+          "iam:GetRolePolicy",
           "iam:PutRolePolicy",
+          "iam:DeleteRolePolicy",
           "iam:ListRolePolicies",
           "iam:ListAttachedRolePolicies",
-          "iam:ListInstanceProfilesForRole"
+          "iam:ListInstanceProfilesForRole",
+
+          "iam:CreatePolicy",
+          "iam:DeletePolicy",
+          "iam:GetPolicy",
+          "iam:GetPolicyVersion",
+          "iam:CreatePolicyVersion",
+          "iam:DeletePolicyVersion",
+          "iam:ListPolicyVersions"
         ],
         "Resource" : [
           # Enforce naming convention for Lambda execution role.
           "arn:aws:iam::637423387388:role/LambdaExecutionRole-*",
+          "arn:aws:iam::637423387388:role/LambdaPolicy-*",
           "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
         ]
       },
